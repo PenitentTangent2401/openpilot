@@ -363,7 +363,7 @@ class SelfdriveD:
         self.events.add(EventName.personalityChanged)
 
     # for SecOC cars synchronize the driving personality with the current PCM following distance
-    if self.CP.SecOC and self.CP.openpilotLongitudinalControl:
+    if self.CP.secOcRequired and self.CP.openpilotLongitudinalControl:
       if CS.out.cruiseState.enable and (3 - CS.pcm_follow_distance != self.personality):
         self.personality = 3 - CS.pcm_follow_distance
         self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
