@@ -362,6 +362,11 @@ class SelfdriveD:
         self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
         self.events.add(EventName.personalityChanged)
 
+    # for SecOC cars synchronize the driving personality with the current PCM following distance
+    if self.CP.SecOC and self.CP.openpilotLongitudinalControl:
+      self.personality = 3 - CS.pcm_follow_distance
+      self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
+
   def data_sample(self):
     car_state = messaging.recv_one(self.car_state_sock)
     CS = car_state.carState if car_state else self.CS_prev
